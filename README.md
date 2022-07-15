@@ -6,9 +6,9 @@ Full project [here](https://github.com/DMDC-estagio)
 
 ### To-do list:
 
-This projects stils in development:
+This projects stills in development:
 
 - [x] Add support for current/voltage measurements
-- [x] Add Wifi support for
+- [x] Add Wifi support
 - [ ] Define the interface method
 - [ ] Transfer data through Wifi
