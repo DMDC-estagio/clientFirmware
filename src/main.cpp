@@ -10,10 +10,12 @@ void loop() {
   if (!WL_CONNECTED) {
     reconectWifi();
   }
+
   float measuredCurrent = measureCurrent();
   float measuredVoltage = measureVoltage();
-  
-  //Serial.print(measuredCurrent);
-  //Serial.print("  ");
+
+  Serial.print("  ");
+  Serial.print(measuredCurrent);
+  Serial.print("  ");
   Serial.println(measuredVoltage);
 }

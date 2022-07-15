@@ -1,8 +1,15 @@
 #include "helper.h"
 
+//PINOUT
+const int 
+  inCurrent = 36,     // Current InPut GPIO 36
+  offsetPin = 39,     // Current Offset GPIO 39
+  CurrentSwitch = 34, // Current relay on GPIO 34
+  inVoltage = 32;     // Voltage InPut GPIO 32
+
 float measureCurrent(){
-  float readVoltage = analogRead(36) - analogRead(34);
-  int active = analogRead(33) > 50 ? 1 : 0;
+  float readVoltage = analogRead(inCurrent) - analogRead(offsetPin);
+  int active = analogRead(CurrentSwitch) > 50 ? 1 : 0;
   
   #ifndef devBoard arduino
   readVoltage = (readVoltage / 4095) * 3.3; // ESP32
@@ -21,7 +28,7 @@ float measureCurrent(){
 }
 
 float measureVoltage(){
-  float readVoltage = analogRead(35);
+  float readVoltage = analogRead(inVoltage);
   readVoltage = ((readVoltage / 1023) * 5) - 1.50;
   return readVoltage * 20 * 17;
 }
