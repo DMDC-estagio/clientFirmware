@@ -7,18 +7,16 @@ const int
   CurrentSwitch = 34, // Current relay on GPIO 34
   inVoltage = 32;     // Voltage InPut GPIO 32
 
-float measureCurrent(){
+float measureCurrent() {
   float readVoltage = analogRead(inCurrent) - analogRead(offsetPin);
   int active = analogRead(CurrentSwitch) > 50 ? 1 : 0;
-  
-  #ifndef devBoard arduino
-  readVoltage = (readVoltage / 4095) * 3.3; // ESP32
-  #endif
-  
+
   #ifdef devBoard arduino
-  readVoltage = (readVoltage / 1023) * 5; // Arduino
+    readVoltage = (readVoltage / 1023) * 5; // Arduino
+  #else
+    readVoltage = (readVoltage / 4095) * 3.3; // ESP32
   #endif
-    
+
   if (active) {
     readVoltage = readVoltage * 10,625;
   }
@@ -27,8 +25,14 @@ float measureCurrent(){
   return readVoltage / 2.4;
 }
 
-float measureVoltage(){
+float measureVoltage() {
   float readVoltage = analogRead(inVoltage);
-  readVoltage = ((readVoltage / 1023) * 5) - 1.50;
+
+  #ifdef devBoard arduino
+    readVoltage = ((readVoltage / 1023) * 5) - 1.50;
+  #else
+    readVoltage = ((readVoltage / 4095) * 3.3) - 1.50;
+  #endif
+
   return readVoltage * 20 * 17;
 }

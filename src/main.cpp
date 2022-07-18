@@ -3,14 +3,19 @@
 
 void setup() {
   Serial.begin(115200);
-  initWifi();
-  initMQTT();
+
+  #ifndef devBoard arduino
+    initWifi();
+    initMQTT();
+  #endif
 }
 
 void loop() {
-  if (!WL_CONNECTED) {
-    reconectWifi();
-  }
+  #ifndef devBoard arduino
+    if (!WL_CONNECTED) {
+      reconectWifi();
+    }
+  #endif
 
   float measuredCurrent = measureCurrent();
   float measuredVoltage = measureVoltage();

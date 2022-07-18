@@ -1,6 +1,7 @@
 #include "helper.h"
-const char* SSID = "D4vz";
-const char* PASSWORD = "12211221";
+
+const char* SSID = "#####";
+const char* PASSWORD = "######";
 
 void initWifi() {
     // Set WiFi configs
@@ -16,6 +17,7 @@ void initWifi() {
 
     WiFi.mode(WIFI_STA);
     WiFi.begin(SSID, PASSWORD);
+    
     Serial.print("Connecting to WiFi ..");
     while (WiFi.status() != WL_CONNECTED) {
         Serial.print('.');
