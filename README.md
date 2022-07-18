@@ -10,5 +10,5 @@ This projects stills in development:
 
 - [x] Add support for current/voltage measurements
 - [x] Add Wifi support
+- [x] Transfer data through Wifi
 - [ ] Define the interface method
-- [ ] Transfer data through Wifi
