@@ -2,26 +2,32 @@
 #include "helper.h"
 
 void setup() {
-  Serial.begin(115200);
-
   #ifndef devBoard arduino
     initWifi();
     initMQTT();
   #endif
 }
 
+unsigned long lastMillis;
+
 void loop() {
-  #ifndef devBoard arduino
-    if (!WL_CONNECTED) {
-      reconectWifi();
+  measurements voltage, current;
+
+  while(true){
+    #ifndef devBoard arduino
+      if (!WL_CONNECTED) {
+        reconectWifi();
+      }
+    #endif
+
+    if(millis() - lastMillis >= 0x15F90) {
+      sendHttp(voltage, current);
+      lastMillis = millis();
     }
-  #endif
+    float measuredCurrent = measureCurrent();
+    float measuredVoltage = measureVoltage();
 
-  float measuredCurrent = measureCurrent();
-  float measuredVoltage = measureVoltage();
-
-  Serial.print("  ");
-  Serial.print(measuredCurrent);
-  Serial.print("  ");
-  Serial.println(measuredVoltage);
+    voltage.med = (voltage.med + measuredVoltage) / 2;
+    if(measuredVoltage > voltage.max) { voltage.max = measuredVoltage; }
+  }
 }

@@ -4,8 +4,15 @@
 // uncoment if using a arduino board
 //#define devBoard arduino
 
+typedef struct {
+    float max;
+    float med;
+    float min;
+} measurements;
+
 #include <WiFi.h>
 #include <PubSubClient.h>
+#include <HTTPClient.h>
 
 // measure.cpp
 float measureCurrent();
@@ -19,5 +26,9 @@ void reconectWifi();
 void initMQTT();
 void reconnetMQTT();
 void publishMQTT(void);
+
+// HTTP-handler.cpp
+String sendHttp(measurements voltage, measurements current);
+
 
 #endif
