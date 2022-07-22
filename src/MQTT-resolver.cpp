@@ -1,5 +1,9 @@
 #include "helper.h"
 
+//------------//
+// DEPRECATED //
+//------------//
+
 /*
     URL mqtt3.thingspeak.com
     Port 1883
@@ -13,8 +17,8 @@ const char* MQTT_SERVER = "mqtt3.thingspeak.com";
 const char* MQTT_SERVER2 = "maqiatto.com";
 
 char msg[50];
-PubSubClient MQTT(CLIENT);
 WiFiClient CLIENT;
+PubSubClient MQTT(CLIENT);
 
 void initMQTT() {
     MQTT.setServer(MQTT_SERVER, 1883);
@@ -41,7 +45,7 @@ void publishMQTT(void) {
     }
     long int value;
     MQTT.loop();
-    snprintf (msg, 75, "%ld", value); // i dont have a clue what this does.
+    snprintf (msg, 75, "%ld", value);
     MQTT.publish("###/###", msg);
   
 }
